@@ -43,7 +43,7 @@ die "ERROR: failed to locate the root directory\n" if !defined($root);
 
 # mapper settings
 my $mapper = "minimap2";
-my $mm2_opt = q/-xasm5 --cs -t$(N_THREADS)/;
+my $mm2_opt = q/-xasm10 --cs -t$(N_THREADS)/;
 if (defined $opts{u}) {
 	$mapper = "unimap";
 } elsif (defined $opts{W}) {
