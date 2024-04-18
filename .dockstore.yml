@@ -1,0 +1,7 @@
+version: 1.2
+workflows:
+  - name: dipcall_asm10
+    subclass: wdl
+    publish: True
+    primaryDescriptorPath: /wdl/dipcall_asm10.wdl
+    testParameterFiles:
