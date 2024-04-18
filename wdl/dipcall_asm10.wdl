@@ -20,7 +20,7 @@ task dipcall {
         Int memSizeGB = 64
         Int threadCount = 16
         Int diskSizeGB = 64
-        String dockerImage = "rlorigro/dipcall_asm10:latest"
+        String dockerImage = "humanpangenomics/hpp_dipcall_v0.3:latest"
     }
 
 	command <<<
@@ -72,14 +72,14 @@ task dipcall {
         samtools faidx $REF_FILENAME
 
         # initialize script
-        cmd=( /opt/dipcall/dipcall_asm10/run-dipcall )
+        cmd=( /opt/dipcall/dipcall.kit/run-dipcall )
 
         # male samples need PAR region excluded
         if [[ ~{isMaleSample} == true ]]; then
             if [[ ~{referenceIsHS38} ]]; then
-                cmd+=( -x /opt/dipcall/dipcall_asm10/data/hs38.PAR.bed )
+                cmd+=( -x /opt/dipcall/dipcall.kit/hs38.PAR.bed )
             else
-                cmd+=( -x /opt/dipcall/dipcall_asm10/data/hs37d5.PAR.bed )
+                cmd+=( -x /opt/dipcall/dipcall.kit/hs37d5.PAR.bed )
             fi
 
         fi
