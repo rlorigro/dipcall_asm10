@@ -6,6 +6,7 @@ workflow runDipcall {
     output{
         File outputTarball    = dipcall.outputTarball
         File outputVCF        = dipcall.outputVCF
+        File outputTBI        = dipcall.outputTBI
         File outputBED        = dipcall.outputBED
     }
 }
@@ -107,10 +108,14 @@ task dipcall {
         rm $MAT_FILENAME
         rm $PAT_FILENAME
 
+        # index the vcf
+        /opt/bcftools/bcftools-1.9/bcftools index -t $PREFIX.dipcall.vcf.gz
+
 	>>>
 	output {
 		File outputTarball = glob("*.dipcall.tar.gz")[0]
 		File outputVCF = glob("*.dipcall.vcf.gz")[0]
+		File outputTBI = glob("*.dipcall.vcf.gz.tbi")[0]
 		File outputBED = glob("*.dipcall.bed")[0]
 	}
     runtime {
