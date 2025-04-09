@@ -17,7 +17,7 @@ task dipcall {
         File assemblyFastaMat
         File referenceFasta
         Boolean isMaleSample
-        Boolean referenceIsHS38 = true
+        File? parBed
         Int memSizeGB = 64
         Int threadCount = 16
         Int diskSizeGB = 64
@@ -77,12 +77,9 @@ task dipcall {
 
         # male samples need PAR region excluded
         if [[ ~{isMaleSample} == true ]]; then
-            if [[ ~{referenceIsHS38} ]]; then
-                cmd+=( -x /opt/dipcall/dipcall.kit/hs38.PAR.bed )
-            else
-                cmd+=( -x /opt/dipcall/dipcall.kit/hs37d5.PAR.bed )
+            if ~{defined(parBed)}; then
+                cmd+=( -x ~{parBed} )
             fi
-
         fi
 
         # finalize script
